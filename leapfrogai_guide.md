@@ -75,6 +75,9 @@ uds create .
 uds deploy k3d-core-slim-dev:0.22.2 --set K3D_EXTRA_ARGS="--gpus=all --image=ghcr.io/justinthelaw/k3d-gpu-support:v1.27.4-k3s1-cuda" # be sure to check if a newer version exists
 uds deploy uds-bundle-leapfrogai-*.tar.zst --confirm
 ```
+
+Ensure on Docker Desktop that your k3d containers are actively running without issue. 
+
 ## Access the UI
 1) Connect to the Keycloak admin panel
    
