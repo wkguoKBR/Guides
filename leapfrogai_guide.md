@@ -77,6 +77,8 @@ uds deploy uds-bundle-leapfrogai-*.tar.zst --confirm
 ```
 
 Ensure on Docker Desktop that your k3d containers are actively running without issue. 
+<br/><br/>
+![Docker Containers](Images/images_leapfrogai_guide/docker_containers.png)
 
 ## Access the UI
 1) Connect to the Keycloak admin panel
@@ -86,12 +88,31 @@ Ensure on Docker Desktop that your k3d containers are actively running without i
       ```
       uds zarf connect keycloak
       ```
-3) Open [ai.uds.dev](https://ai.uds.dev/) and click "Login using SSO"
-4) In the login screen, select "Register Here"
-5) Fill out the resulting form. *To reach 100% on the anti-bot detection, simply move around your cursor*
-6) Open Microsoft Authenticator to scan the provided QRcode and complete the subsequent MFA instructions
-7) Open [sso.uds.dev](https://sso.uds.dev/) and login using your newly-created admin account's username and password
-8) To access the UI, head back to [ai.uds.dev](https://ai.uds.dev/) and login as your registered user
+      ![Keycloak create user](Images/images_leapfrogai_guide/keycloak_create_user.png)
+      
+2) Open [ai.uds.dev](https://ai.uds.dev/) and click "Login using SSO"
+
+   ![LeapfrogAI Login Page](Images/images_leapfrogai_guide/leapfrogai_login.png)
+   
+3) In the login screen, select "Register Here"
+
+   ![LeapfrogAI Register Here](Images/images_leapfrogai_guide/register_new_user.png)
+   
+4) Fill out the resulting form. *To reach 100% on the anti-bot detection, simply move around your cursor*
+
+   ![Register Form](Images/images_leapfrogai_guide/register_form.png)
+   
+5) Open Microsoft Authenticator to scan the provided QRcode and complete the subsequent MFA instructions
+
+   ![MFA Check](Images/images_leapfrogai_guide/mfa_check.png)
+   
+6) Open [sso.uds.dev](https://sso.uds.dev/) and login using your newly-created admin account's username and password
+
+   ![SSO UDS](Images/images_leapfrogai_guide/SSO_UDS.png)
+   
+7) To access the UI, head back to [ai.uds.dev](https://ai.uds.dev/) and login as your registered user
+
+   ![LeapfrogAI UI](Images/images_leapfrogai_guide/leapfrogai_ui.png)
 
 ## Clean-up/Fresh Install
 
