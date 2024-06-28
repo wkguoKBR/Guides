@@ -1,4 +1,4 @@
-# LeapfrogAI Local Deployment Guide (Tuesday, June 26 2024)
+# LeapfrogAI Deployment Guide (Tuesday, June 26 2024)
 
 ## Introduction
 
