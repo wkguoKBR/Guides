@@ -79,7 +79,25 @@ docker volume prune -f # removes all hanging container volumes
     }'
    ```
   
-   The first entry in the `messages` array defines the chatbot assistant. The second is the user query, in this case asking `"What is your name?"` as the value of the `"content"` key. Recognize the difference in roles between the two messages.
+   The first entry in the `messages` array defines the chatbot assistant. The second is the user query, in this case asking `"What is your name?"` as the value of the `"content"` key. Recognize the difference      in roles between the two messages.
+
+   Here is the response I obtained to the above query:
+   ```
+   {"id":"",
+    "object":"chat.completion",
+    "created":0,
+    "model":"llama-cpp-python",
+    "choices":[
+       {"index":0,
+        "message":{"role":"assistant",
+        "content":" My name is Doug, and I am an AI assistant created by the company Defense Unicorns."},
+        "finish_reason":"FinishReason.STOP"
+       }
+    ],
+    "usage":{"prompt_tokens":41,"completion_tokens":23,"total_tokens":64}
+   }
+   ```
+   
 9) After a successful deployment, explore the schema at https://leapfrogai-api.uds.dev/docs
 
 ## Common Issues
