@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This guide provides instructions to expose LeapfrogAI API to your local server.  Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references documentation written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository.
+This guide provides instructions to expose LeapfrogAI API to your local server. We'll be using Ubuntu as our Linux distribution. Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references documentation written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository.
 
 ## Requirements
 > 1) You have cloned the [LeapfrogAI Github Repository](https://github.com/defenseunicorns/leapfrogai.git)
@@ -32,16 +32,18 @@ docker volume prune -f # removes all hanging container volumes
 
 2) Open the `uds-config.yaml` with vim (ex. vim uds-config.yaml) and insert the line `leapfrogai-api.expose_openapi_schema: true` under the `leapfrogai-api` section.
 
-3) Create and deploy the LeapfrogAI 0.8.0 UDS bundle:
+   ![UDS_Config](Images/images_leapfrogai_api_guide/uds-config.png)
+
+4) Create and deploy the LeapfrogAI 0.8.0 UDS bundle:
    ```
    uds create .
    uds deploy uds-bundle-leapfrogai-*.tar.zst --confirm
    ```
-4) Obtain the Supabase JWT Secret:
+5) Obtain the Supabase JWT Secret:
    ```
    uds zarf tools kubectl get secret -n leapfrogai supabase-bootstrap-jwt -o json | jq '.data | map_values(@base64d)'
    ```
-5) Generate a Supabase user and obtain an access token:
+6) Generate a Supabase user and obtain an access token:
    - `<anon-key>` is the Supabase JWT Secret
    - `<email>` is the user's email
    - `<password>` is the user's password
@@ -99,6 +101,8 @@ docker volume prune -f # removes all hanging container volumes
    ```
    
 9) After a successful deployment, explore the schema at https://leapfrogai-api.uds.dev/docs
+
+   ![Swagger Schema](Images/images_leapfrogai_api_guide/swagger_leapfrogai_schema.png)
 
 ## Common Issues
 
