@@ -2,7 +2,8 @@
 
 ## Introduction
 
-This guide provides instructions to expose LeapfrogAI API to your local server. We'll be using Ubuntu as our Linux distribution. Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references documentation written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository.
+This guide provides instructions to expose LeapfrogAI API to your local server. We'll be using Ubuntu as our Linux distribution. Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references [documentation](Documents/LeapfrogAI%20Expose%20API.md
+) written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository as "LeapfrogAI Expose API.md".
 
 ## Requirements
 > 1) You have cloned the [LeapfrogAI Github Repository](https://github.com/defenseunicorns/leapfrogai.git)
@@ -13,8 +14,9 @@ This guide provides instructions to expose LeapfrogAI API to your local server. 
 >     uds zarf tools clear-cache && rm -rf ~/.uds-cache && rm -rf /tmp/zarf-*
 >     docker system prune -a -f && docker volume prune -f
 >     ```
-
-**ATTENTION:** It can be a challenging, frustrating, and long-process to setup your environment for proper API deployment. There are multiple areas where errors may occur when running commands (specifically at step 3), and the best solution if you're at a big roadblock is to either perform a full clean-up/re-clone the LeapfrogAI repo and start from scratch.
+>     
+> ***ATTENTION:***
+> It can be a challenging, frustrating, and long-process to setup your environment for proper API deployment. There are multiple areas where errors may occur when running commands (specifically at step 3), and the best solution if you're at a big roadblock is to either perform a full clean-up/re-clone the LeapfrogAI repo and start from scratch.
 
 Run the following commands in order to perform a clean-up or fresh install of your deployments.
 
