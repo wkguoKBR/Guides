@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This guide provides instructions to expose LeapfrogAI API to your local server.  Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references documentation written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository.
+This guide provides instructions to expose LeapfrogAI API to your local server. We'll be using Ubuntu as our Linux distribution. Note that work is being done to provide long-lived API keys and address a couple pain-points that will be mentioned. This writing references documentation written by Justin Law from Defense Unicorns, which can be found in the *Documents* folder of the repository.
 
 ## Requirements
 > 1) You have cloned the [LeapfrogAI Github Repository](https://github.com/defenseunicorns/leapfrogai.git)
