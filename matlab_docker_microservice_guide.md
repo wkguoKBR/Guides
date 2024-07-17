@@ -36,9 +36,9 @@ This guide will walk you through how to create a microservice Docker image of a 
        1.4062
    ```
    
-3) **Package Function as into a Deployable Code Archive**
+2) **Package Function as into a Deployable Code Archive**
 
-   The next step is to package the `simplebondprice` function into a code archive with `compiler.build.productionServerArchive`
+   The next step is to package `simplebondprice` into a code archive with the `compiler.build.productionServerArchive` function.
 
    ```
    >> mservice = compiler.build.productionServerArchive('simplebondprice.m','ArchiveName','bondtools','Verbose','on')
@@ -53,9 +53,32 @@ This guide will walk you through how to create a microservice Docker image of a 
 
    When fully built, you should see the folder `bondtoolsproductionServerArchive` in your current working directory which holds the deployable archive.
    
-5) **Build the Docker Image**
-6) **Test the Microservice**
-7) **Save Docker Image into GitHub Repository**
+3) **Build the Docker Image**
+
+   We can construct our microservice Docker image with the `mservice` object and function `compiler.package.microserviceDockerImage`. You will want Docker Desktop to be up and running before submitting the command. Furthermore, please note that your first time building a Docker image with this function will take a couple of minutes.
+
+   ```
+   >> compiler.package.microserviceDockerImage(mservice,'ImageName','bondtools')
+   Creating Dockerfile for image 'matlabruntimebase/r2024a/release/update4' at 'C:\Users\K160458\Documents\bondtoolsmicroserviceDockerImage\matlabruntimebase\Dockerfile.deps'.
+   .
+   .
+   .
+   For help getting started with microservice images, please read:
+
+   C:\Users\K160458\Documents\bondtoolsmicroserviceDockerImage\GettingStarted.txt
+   ```
+
+   Once finished, you should have access to a helpful `GettingStarted.txt` that'll provide information on how to run the microservice image and use the curl command to make an HTTP request.
+   
+4) **Test the Microservice**
+
+   Verify that you possess the `bondtools` image in your Linux (ex. Ubuntu) terminal.
+   
+   ```
+   docker images
+   ```
+   
+8) **Save Docker Image into GitHub Repository**
 
 This section is based on official documentation [Create Microservice Docker Image](https://www.mathworks.com/help/compiler_sdk/mps_dev_test/create-a-microservice-docker-image.html?searchHighlight=docker&s_tid=srchtitle_docker_5).
 
