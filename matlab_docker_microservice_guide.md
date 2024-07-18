@@ -77,12 +77,65 @@ This guide will walk you through how to create a microservice Docker image of a 
    ```
    docker images
    ```
+
+   ![bondtools_dockerImages](Images/images_matlab_docker/docker_images_bondtools.png)
+
+   Run the microservice image in Docker on port 9900.
+
+   ```
+   docker run --rm -td -p 9900:9910 bondtools -l trace
+   ```
+
+   ![Run Docker Image](Images/images_matlab_docker/run_docker_image.png)
+
+   Now that our service is running, let's test it using the `curl` command to send a JSON request body with input arguments [100000,4.5,3.2,36] to the service through port 9900.
+
+   ```
+   curl -v -H Content-Type:application/json -d '{"nargout":1,"rhs":[100000,4.5,3.2,36]}' \
+   "http://localhost:9900/bondtools/simplebondprice"; echo
+   ```
+
+   ![Curl Command](Images/images_matlab_docker/curl_command.png)
+
+   You can also use external tools such as Postman to send in requests if you prefer.
+
+   ![Postman Bondtools](Images/images_matlab_docker/postman_bondtools.png)
    
-8) **Save Docker Image into GitHub Repository**
-
-This section is based on official documentation [Create Microservice Docker Image](https://www.mathworks.com/help/compiler_sdk/mps_dev_test/create-a-microservice-docker-image.html?searchHighlight=docker&s_tid=srchtitle_docker_5).
-
 ### Step 2. Deploy Microservice to Choreo
+
+1) **Save Docker Image into GitHub Repository**
+
+   To continue deploy our microservice from *Step 1. Create Microservice Docker Image in MATLAB*, we first compile it into a (preferably public) GitHub repository. Access the example repo [MATLAB-Choreo-Test](https://github.com/wkguoKBR/MATLAB-Choreo-Test) to ensure yours is ultimately setup similarly if not the same.
+
+   For starters, create a new repository and orient it like so:
+
+2) **Update Dockerfile in Microservice Docker Image Folder**
+
+   Navigate to the folder with your microservice Docker image, which in this case is `bondtoolsmicroserviceDockerImage`. Here, you should see a combination of 5 different files/folders.
+   - `applicationFilesForMATLABCompiler`: Contains *bondtools.ctf*, which is the code archive and contains our MATLAB code
+   - `matlabruntime`: Contains *Dockerfile.runtime* which runs a MATLAB Runtime image using Docker, allowing the execution of MATLAB applications without the need to have MATLAB installed
+   - `matlabruntimebase`: Contains *Dockerfile.deps* which handles the dependencies and essential files required to setup the MATLAB Runtime environment
+   - `Dockerfile`: Creates a Docker image named `bondtools` that holds our compiled MATLAB application
+   - `GettingStarted.txt`: Provides a simple introduction on how to use the `bondtoolsmicroserviceDockerImage` and run the microservice
+  
+   Open the `Dockerfile` and observe Line 6: `FROM matlabruntime/r2024a/release/update4/108000000000000000`. This line is responsible for specifying the base image for the Docker image, using a specific version of the MATLAB Runtime environment. When you run `Dockerfile`, this base image is actually built ahead-of-time by first running `Dockerfile.deps` and then `Dockerfile.runtime*. In a local environment, this allows for the usage of a minimal MATLAB Runtime package to assist in compiling and executing our MATLAB applications.
+
+   However, when our microservice is deployed to Choreo at its current state, we'll encounter an error at Line 6 during runtime because it doesn't recognize our base image of `matlabruntime/r2024a/release/update4/108000000000000000`. This is due to the fact that the base image is not first built by running `Dockerfile.deps` and `Dockerfile.runtime` ahead of `Dockerfile`.
+
+   A solution to this problem is to use an image publicly accessible on Docker Hub that contains the MATLAB Runtime. There are two ways:
+   1) Use an existing image such as [wkguo/matlabruntime:latest](https://hub.docker.com/r/wkguo/matlabruntime)
+   2) Create and push your own MATLAB Runtime image onto Docker Hub
+
+   If you choose option 1, you need to change Line 6 to `FROM wkguo/matlabruntime:latest` and possibly Line 14 of `Dockerfile` to the MATLAB Runtime version that `wkguo/matlabruntime:latest` possesses, which is `R2024a`.
+   ```
+   6       FROM wkguo/matlabruntime:latest
+   .
+   .
+   .
+   14      ENTRYPOINT ["/opt/matlabruntime/R2024a/bin/glnxa64/muserve", "-a", "/usr/bin/mlrtapp/bondtools.ctf"]`
+   ```
+
+4) 
 
 ### Step 3. Expose Choreo Service as an API
 
