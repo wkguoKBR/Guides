@@ -101,7 +101,7 @@ This guide will walk you through how to create a microservice Docker image of a 
 
    ![Postman Bondtools](Images/images_matlab_docker/postman_bondtools.png)
    
-### Step 2. Deploy Microservice to Choreo
+### Step 2. Setup GitHub Repo
 
 1) **Save Docker Image into GitHub Repository**
 
@@ -152,6 +152,118 @@ This guide will walk you through how to create a microservice Docker image of a 
    
 3) **Add in .choreo/endpoints.yaml and openapi.yaml**
 
-### Step 3. Expose Choreo Service as an API
+   Our next step is to include two files into our GitHub repository: `.choreo/endpoints.yaml` and `openapi.yaml`.
+   - `.choreo/endpoints.yaml`: A Choreo-specific configuration that tells Choreo how to expose the service
+   - `openapi.yaml`: Provides an OpenAPI specification that describes our API definition, including available endpoints and operations
+
+   First, let's handle `.choreo/endpoints.yaml`. The `.choreo` directory needs to be placed at the root of the Docker build context path. In our case, it will be at the same level as our `Dockerfile` in `bondtoolsmicroserviceDockerImage`.
+
+    Create a new file named `endpoints.yaml` inside of `.choreo`. Populate it with the following code:
+   ```
+   # +required Version of the endpoint configuration YAML
+   version: 0.1
+
+   # +required List of endpoints to create
+   endpoints:
+     # +required Unique name for the endpoint. (This name will be used when generating the managed API)
+   - name: MATLAB Microservice Test
+     # +required Numeric port value that gets exposed via this endpoint
+     port: 9910
+     # +required Type of the traffic this endpoint is accepting. Example: REST, GraphQL, etc.
+     # Allowed values: REST, GraphQL, GRPC, UDP, TCP
+     type: REST
+     # +optional Network level visibility of this endpoint. Defaults to Public
+     networkVisibility: Public
+     # +optional Context (base path) of the API that is exposed via this endpoint.
+     context: /
+     # +optional Schema file path to openapi.yaml
+     schemaFilePath: ../openapi.yaml
+   ```
+
+   Noticed we've defined `schemaFilePath: ../openapi.yaml`, which means we have to place our `openapi.yaml` file one level up that of `.choreo`. Populate it with the following:
+
+   ```
+   openapi: 3.0.0
+   info:
+     title: MATLAB Microservice Test
+     version: 1.0.0
+   paths:
+     /bondtools/simplebondprice:
+       post:
+         tags:
+           - default
+         summary: Call simplebondprice Matlab Function
+         requestBody: 
+           required: true
+           content:
+             application/json:
+               schema:
+                 type: object
+                 properties:
+                   nargout:
+                     type: integer
+                     format: int64
+                     example: 1
+                   rhs:
+                     type: array
+                     items:
+                       type: integer
+                       format: int64
+                       example: 1
+                     minItems: 4
+         responses:
+           "200":
+             description: Successful response
+             content:
+               application/json:
+                 schema:
+                   type: object
+                   properties:
+                     lhs: 
+                       type: array
+                       items:
+                         type: object
+                         properties:
+                           mwdata:
+                             type: array
+                             items:
+                               type: integer
+                               format: int64
+                           mwsize:
+                             type: array
+                             items:
+                               type: integer
+                               format: int64
+                           mytype:
+                             type: double
+   ```
+
+   Here, we have a singular endpoint path of `/bondtools/simplebondprice` for a **POST** operation. Notice how we're defining a request body that the user is required to provide (ex. translates to the JSON body of {"nargout":...,"rhs":[...]} we saw earlier) as well the content/format of the response we expect to receive.
+
+   Once finished, check that see that your file structure is consistent with the one shown below:
+
+   ![Project Structure](Images/images_matlab_docker/project_structure.png)
+
+### Step 3. Deploy Microservice to Choreo
+
+1. **Go to Choreo and Create a New Project**
+
+   Navigate to the Choreo Home Screen below and select "Create Project".
+
+   ![Choreo Home](Images/images_matlab_docker/Choreo Home Screen.png)
+
+   Fill out your project details and once created, select "Service" under "Create a Component". Here, we'll out all required information including:
+   - Component Display Name: bondtools_test
+   - Provide Repository URL: https://github.com/wkguoKBR/MATLAB-Choreo-Test
+   - Buildpack: Docker
+       - Docker Context: /bondtoolsmicroserviceDockerImage
+       - Dockerfile: /bondtoolsmicroserviceDockerImage/Dockerfile
+
+   ![Create Service](Images/images_matlab_docker/New Service Component.png)
+     
+
+3. 
+
+### Step 4. Expose Choreo Service as an API
 
 ## Resources
