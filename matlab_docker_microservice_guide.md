@@ -250,20 +250,73 @@ This guide will walk you through how to create a microservice Docker image of a 
 
    Navigate to the Choreo Home Screen below and select "Create Project".
 
-   ![Choreo Home](Images/images_matlab_docker/Choreo Home Screen.png)
+   ![Choreo Home](https://github.com/wkguoKBR/Guides/blob/68cc291f0dd61f92f72bdac94c4d3ec9e8e840e7/Images/images_matlab_docker/Choreo%20Home%20Screen.png)
 
-   Fill out your project details and once created, select "Service" under "Create a Component". Here, we'll out all required information including:
+2. **Create a New Service Component**
+
+   Fill out your project details and once created, select "Service" under "Create a Component". Here, we'll out all required information including and create our new service:
    - Component Display Name: bondtools_test
    - Provide Repository URL: https://github.com/wkguoKBR/MATLAB-Choreo-Test
    - Buildpack: Docker
        - Docker Context: /bondtoolsmicroserviceDockerImage
        - Dockerfile: /bondtoolsmicroserviceDockerImage/Dockerfile
 
-   ![Create Service](Images/images_matlab_docker/New Service Component.png)
-     
+   ![Create Service](https://github.com/wkguoKBR/Guides/blob/423c82efab8dfe31db5d2894e8f31e796470c27e/Images/images_matlab_docker/New%20Service%20Component.png)
 
-3. 
+   You should see this "Overview" screen with a variety of buttons on the left sidebar.
+
+   ![bondtools screen](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/bondtools%20screen.png)
+
+3. **Build the Service**
+
+   Go to the `Build` page through the left sidebar and click on "Build Latest" to build our service for the first time. Once finished successfully, you'll have a a new build listed under the "Builds" section like so.
+
+   ![Built Service](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/Built%20Service.png)
+
+4. **Deploy the Service**
+
+   Next, we will need to deploy our build. Go to the `Deploy` page through the sidebar and select "Configure & Deploy". Just keep on clicking "Next" and finally "Deploy" on the last step. This will deploy our latest build and set up our `Development` environment. Once done, you should see something similar to:
+
+   ![Deployment Deploy](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/Development%20Deploy.png)
+
+5. **Test the Service**
+
+   We can now finally try making a request with our Docker microservice through Choreo! Go to the `Test --> Console` Page. Here, we can use the Choreo Console to test our API, which as shown below holds our singular POST operation to the path `/bondtools/simplebondprice`.
+
+    ![Choreo Test Console](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/Choreo%20Test%20Console.png)
+
+   By expanding our POST operation, you can view its required request body and responses each with example values for reference. Observe how the example value for the request body is identical in format to the JSON body we used to earlier when testing on our local environment.
+
+   ![Choreo POST Preview](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/POST%20Preview.png)
+
+   Click on "Try it out" to specify the request body to `{"nargout":1,"rhs": [100000,4.5,3.2,36]}` and click `Execute`. You should see the following response.
+
+   ![POST Output](https://github.com/wkguoKBR/Guides/blob/bf2697712ea91d0638a05839b32f82948d01c33b/Images/images_matlab_docker/Choreo%20POST%20Output.png)
+
+   Congrats! You have now successfully made and received a valid response to an HTTP request sent to a Docker microservice that packages a MATLAB function through Choreo.
 
 ### Step 4. Expose Choreo Service as an API
+
+While what we did in Step 3 is great, we were only able to use our service privately using the built-in Choreo Test console. It is not accessible to external consumers. To make our service publicly available for use, we can expose our service as an API to the [Choreo Developer Portal](https://devportal.choreo.dev/sign-in).
+
+1. **Publish our Service**
+
+   Go to the `Manage --> Lifecycle` page, which opens up the `Lifecycle Management` pane that showcases the varying lifecycle stages our API can be in. At the current moment, it is on the `Created` stage.
+
+   ![Created Stage](https://github.com/wkguoKBR/Guides/blob/44f659160f2a138f861136e44dcdc86553d4c8b2/Images/images_matlab_docker/Created%20Stage.png)   
+
+   To publish our service, simply click the `Publish` button. Our API is now at the `Published` stage.
+
+   ![Published Stage](https://github.com/wkguoKBR/Guides/blob/44f659160f2a138f861136e44dcdc86553d4c8b2/Images/images_matlab_docker/Published%20Stage.png)
+
+3. **Call the API**
+
+   In the `Lifecycle Management` pane, click on the `Go to DevPortal` button to access our API on the Choreo Developer Portal.
+
+   ![Choreo Developer Portal](https://github.com/wkguoKBR/Guides/blob/44f659160f2a138f861136e44dcdc86553d4c8b2/Images/images_matlab_docker/Developer%20Portal%20Home.png)
+
+   Before we can use our API, we need to first generate credentials. In the left sidebar, select `Production` under `Credentials` and click `Generate Credentials`.
+
+   Then, select `Try Out` on the sidebar. Click `Get Test Key` to obtain an access token and expand the `POST` operation. Fill in the request body, click `Execute`, and get back a response to our request!
 
 ## Resources
