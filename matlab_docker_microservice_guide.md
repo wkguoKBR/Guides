@@ -117,8 +117,12 @@ This guide will walk you through how to create a microservice Docker image of a 
    - `matlabruntimebase`: Contains *Dockerfile.deps* which handles the dependencies and essential files required to setup the MATLAB Runtime environment
    - `Dockerfile`: Creates a Docker image named `bondtools` that holds our compiled MATLAB application
    - `GettingStarted.txt`: Provides a simple introduction on how to use the `bondtoolsmicroserviceDockerImage` and run the microservice
+
+   ![GitHub Initial](Images/images_matlab_docker/github_initial.png)
   
    Open the `Dockerfile` and observe Line 6: `FROM matlabruntime/r2024a/release/update4/108000000000000000`. This line is responsible for specifying the base image for the Docker image, using a specific version of the MATLAB Runtime environment. When you run `Dockerfile`, this base image is actually built ahead-of-time by first running `Dockerfile.deps` and then `Dockerfile.runtime*. In a local environment, this allows for the usage of a minimal MATLAB Runtime package to assist in compiling and executing our MATLAB applications.
+
+   ![Dockerfile](Images/images_matlab_docker/Dockerfile.png)
 
    However, when our microservice is deployed to Choreo at its current state, we'll encounter an error at Line 6 during runtime because it doesn't recognize our base image of `matlabruntime/r2024a/release/update4/108000000000000000`. This is due to the fact that the base image is not first built by running `Dockerfile.deps` and `Dockerfile.runtime` ahead of `Dockerfile`.
 
@@ -126,16 +130,27 @@ This guide will walk you through how to create a microservice Docker image of a 
    1) Use an existing image such as [wkguo/matlabruntime:latest](https://hub.docker.com/r/wkguo/matlabruntime)
    2) Create and push your own MATLAB Runtime image onto Docker Hub
 
-   If you choose option 1, you need to change Line 6 to `FROM wkguo/matlabruntime:latest` and possibly Line 14 of `Dockerfile` to the MATLAB Runtime version that `wkguo/matlabruntime:latest` possesses, which is `R2024a`.
+   If you choose Option 1, you need to make three changes to `Dockerfile`:
+   1) Line 6 to `FROM wkguo/matlabruntime:latest`
+   2) Line 12 to `USER 10001` (Note: In Choreo, a valid USER ID is between [10000-20000](https://wso2.com/choreo/docs/develop-components/deploy-a-containerized-application/))
+   3) Line 14 such that the MATLAB Runtime version matches that of what `wkguo/matlabruntime:latest` possesses, which is `R2024a`.
+   <br></br>
    ```
    6       FROM wkguo/matlabruntime:latest
    .
    .
    .
+   12      USER 10001
+   .  
    14      ENTRYPOINT ["/opt/matlabruntime/R2024a/bin/glnxa64/muserve", "-a", "/usr/bin/mlrtapp/bondtools.ctf"]`
    ```
 
-4) 
+   Here is what your base `Dockerfile` should look like:
+
+   ![Final Dockerfile](Images/images_matlab_docker/final_dockerfile.png)
+
+   
+3) **Add in .choreo/endpoints.yaml and openapi.yaml**
 
 ### Step 3. Expose Choreo Service as an API
 
