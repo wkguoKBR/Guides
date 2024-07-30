@@ -320,3 +320,17 @@ While what we did in Step 3 is great, we were only able to use our service priva
    Then, select `Try Out` on the sidebar. Click `Get Test Key` to obtain an access token and expand the `POST` operation. Fill in the request body, click `Execute`, and get back a response to our request!
 
 ## Resources
+
+### 1. Create Microservice Docker Image in MATLAB
+- [Create Microservice Docker Image](https://www.mathworks.com/help/compiler_sdk/mps_dev_test/create-a-microservice-docker-image.html?s_eid=PSM_15028)
+- [Create Microservice Docker Containers with MATLAB](https://www.mathworks.com/videos/create-microservice-docker-containers-with-matlab-1647931020285.html)
+- [MATLAB Compiler SDK](https://www.mathworks.com/products/matlab-compiler-sdk.html)
+
+### 2. Setup GitHub Repo + 3. Deploy Microservice to Choreo
+- [Develop a Service](https://wso2.com/choreo/docs/develop-components/develop-services/develop-a-service/)
+- [Develop a Service with Docker](https://wso2.com/choreo/docs/develop-components/develop-services/develop-a-service-with-docker/)
+- [Configure Endpoints](https://wso2.com/choreo/docs/develop-components/configure-endpoints/)
+- [Swagger OpenAPI](https://swagger.io/docs/specification/about/)
+
+### 4. Expose Choreo Service as an API
+- [Expose a Service as a Managed API](https://wso2.com/choreo/docs/tutorials/expose-a-service-as-a-managed-api/#step-5-publish-the-api-proxy)
