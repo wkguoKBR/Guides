@@ -319,6 +319,12 @@ While what we did in Step 3 is great, we were only able to use our service priva
 
    Then, select `Try Out` on the sidebar. Click `Get Test Key` to obtain an access token and expand the `POST` operation. Fill in the request body, click `Execute`, and get back a response to our request!
 
+## Potential Issues
+
+1) **500 Internal Server Error**
+
+   One documented issue is that you may encounter a 500 Internal Server Error when sending in a POST request to the API or equivalently a 500 UnableToInitCTF error if testing out the microservice locally. The easiest fix is to generate an entirely new deployable code archive and docker image (redo Steps 1.2-1.3) to replace your original copies. 
+
 ## Resources
 
 ### 1. Create Microservice Docker Image in MATLAB
