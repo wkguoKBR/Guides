@@ -16,7 +16,7 @@ This guide provides instructions to expose LeapfrogAI API to your local server. 
 >     ```
 >     
 > ***ATTENTION:***
-> It can be a challenging, frustrating, and long-process to setup your environment for proper API deployment. There are multiple areas where errors may occur when running commands (specifically at step 3), and the best solution if you're at a big roadblock is to either perform a full clean-up/re-clone the LeapfrogAI repo and start from scratch.
+> There are multiple areas where errors may occur when running commands (specifically at step 3), and the best solution if you're at a big roadblock is to either perform a full clean-up/re-clone the LeapfrogAI repo and start from scratch.
 
 Run the following commands in order to perform a clean-up or fresh install of your deployments.
 
