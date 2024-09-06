@@ -47,7 +47,7 @@ Open the [RAG-Tutorial](https://github.com/wkguoKBR/RAG-Tutorial) GitHub repo to
 
    Place your desired PDF documents in the `data` folder. Currently, the folder only has `monoploy.pdf` which specifies the rules of the game.
 
-3) Specify OpenAI API Key in `.env`
+3) Specify OpenAI API Key in `.env` (skip if you prefer to use Ollama models)
 
    Navigate to the `.env` file and replace 'YOUR_API_KEY' with a valid private OpenAI API key.
 
@@ -59,4 +59,33 @@ The two options available in the example are to use an embedding model and LLM f
 - [OpenAI](https://openai.com/) offers better embedding functions and generative AI models, although the caveats are that you will require a valid API key and compromise locality.
 - [Ollama](https://ollama.com/) offers the benefit of keeping your project fully local. Just download Ollama, pull their `nomic-embed-text` and `llama3` models, and then run `ollama serve` to start the server.
 
+After you decided which platform to use, navigate to `populate_database.py` and comment/uncomment the corresponding import statements for embedding functions (lines 9-10) to fit your specification.
+
+1) Run `python populate_database.py`
+
+   This will run the `populate_database.py` script. The overall flow of this script is as the following:
+   - Load the PDF documents
+   - Split the documents into text chunks
+   - Embed those chunks and add them to a Chroma database (you will use a `chroma` folder that contains a sqlite3 file)
+
+   You can also add a `--reset` flag to the end of the command if you wish to reset the vector database.
+
+   If successful, your terminal should output the # of existing documents within the database as well as how many new documents (if any) were added.
+
+   ![populate_database](Images/images_rag_langchain_guide/populate_database.png)
+
+#### Step 3. Provide a User Prompt and Query LLM
+
+1) Run `python ollama_query_data.py "user_question"` (replace ollama_query_data.py with openai_query_data.py if using OpenAI)
+
+   This will run the `ollama_query_data.py` script. Replace "user_question" with your desired question/prompt about the provided PDF documents. In this case, the screenshot below asks the `llama3` model the question of "How do you build hotels in Monoploy?".
+
+   ![query_ollama](Images/images_rag_langchain_guide/query_ollama.png)
+
+   We can observe that we received a detailed response from `llama3` regarding how to build hotels in the game of Monoploy. We are also provided a list of the top 5 sources that served as context for the LLM to use to generate its response. For example, the first source of `monoploy.pdf:1:2` is of the form  `Page Source: Page Number: Chunk Index` and refers to the second chunk of the first page of `monoploy.pdf`.
+   
 ### Part 2: Enhancing the RAG Application with Streamlit UI
+
+Open the [RAG-Chatbot](https://github.com/wkguoKBR/RAG-Chatbot) GitHub repo to follow along and access the entire completed project.
+
+
