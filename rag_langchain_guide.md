@@ -2,11 +2,13 @@
 
 ## Introduction
 
-This guide will walk through how to implement your own RAG application using Langchain and Python. We will cover how to process user-provided PDF documents for efficient information retrieval and leverage Large Language Models (LLMs) to generate contextually relevant and semantically-driven responses based on the content of those documents.
+This guide will walk through how to implement an RAG application using Langchain and Python. We will cover how to process user-provided PDF documents for efficient information retrieval and leverage Large Language Models (LLMs) to generate contextually relevant and semantically-driven responses based on the content of those documents.
 
 ## What is RAG?
 
 RAG stands for retrieval-augmented generation, which according to AWS, is "the process of optimizing the output of a large language model ... so it references an authoritative knowledge base outside of its training data sources before generating a response". A common caveat of LLMs is that they are limited to only their pre-trained data and thus cannot reliably act upon proprietary data sources. RAG addresses this by adding an external data retrieval step to pull in and store information from sources such as a document repository in a vector database, thereby allowing LLMS to access such content and act upon dynamic, user-provided data.
+
+There are a couple of main steps to a standard RAG workflow, which the image below nicely visualizes. 
 
 ## Instructions
 
