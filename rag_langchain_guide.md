@@ -82,10 +82,60 @@ After you decided which platform to use, navigate to `populate_database.py` and 
 
    ![query_ollama](Images/images_rag_langchain_guide/query_ollama.png)
 
-   We can observe that we received a detailed response from `llama3` regarding how to build hotels in the game of Monoploy. We are also provided a list of the top 5 sources that served as context for the LLM to use to generate its response. For example, the first source of `monoploy.pdf:1:2` is of the form  `Page Source: Page Number: Chunk Index` and refers to the second chunk of the first page of `monoploy.pdf`.
+   We can observe that we received a detailed response from `llama3` regarding how to build hotels in the game of Monoploy. We are also provided a list of the top 5 sources that served as context for the LLM to generate its response. For example, the first source of `monoploy.pdf:1:2` is of the form  `Page Source: Page Number: Chunk Index` and refers to the second chunk of the first page of `monoploy.pdf`.
    
 ### Part 2: Enhancing the RAG Application with Streamlit UI
 
 Open the [RAG-Chatbot](https://github.com/wkguoKBR/RAG-Chatbot) GitHub repo to follow along and access the entire completed project.
 
+We will now move on to Part 2 of this guide which covers on to extend our RAG application by integrating a UI component using Streamlit. The overall backend process/workflow is the same with minor differences in implementation. 
 
+*Note: The above repo features only the usage of Ollama models (remember to first run `ollama serve` to start the server!) If you desire to use OpenAI, swap out both the embedding and LLM models for their respective OpenAI counterparts. Revisit [RAG-Tutorial](https://github.com/wkguoKBR/RAG-Tutorial) for examples.*
+
+#### Step 1. Setup environment
+
+1) Run `pip install -r requirements.txt`
+
+   This will install the majority of the required packages for our Streamlit app. The only additional package compared to the earlier `requirements.txt` in Part 1 is `Streamlit`.
+
+#### Step 2. Open Streamlit app and upload PDFs
+
+1) Run `streamlit run ollama_pypdf_chatbot.py`
+
+   The above command starts a local Streamlit application on the web using the script `ollama_pypdf_chatbot.py`.
+
+   ![basic_chatbot](Images/images_rag_langchain_guide/basic_chatbot.png)
+
+2) Upload your desired PDFs on the left sidebar
+
+   Click `Browse Files`, select your PDF documents, and then select `Process`. This will process the PDFs into multiple embeddings stored in a Chroma vector database.
+
+   ![upload_pdf_chatbot](Images/images_rag_langchain_guide/upload_pdf_chatbot.png)
+
+   Once the vector store is initialized, you are ready to ask a question in the main input box.
+
+#### Step 3. Provide a User Prompt and Query LLM
+
+1) Input a question into input box and press `Enter`
+
+   Provide a user query such as "How do you build hotels in Monoploy?". The LLM will process the user prompt, identify the relevant context, and generate an appropriate response.
+
+   ![ask_chatbot_question](Images/images_rag_langchain_guide/ask_chatbot_question.png)
+
+   The original question and its response will appear as individual text boxes in the app. You'll also be provided the context sources as expandable elements that you can click into and view its corresponding text chunk.
+
+## Additional Considerations
+
+### GPU Acceleration
+
+Running local LLMs is a great way to obtain generative AI capabilities without having to rely upon external third-party resources and provide your data. However, they can be a considerable amount slower in terms of response time. One reason why can be that your local models are running on CPU, which are not optimized for parallel processing tasks. 
+
+If your machine possesses a dedicated GPU, you can instead run your models from Ollama on GPU to receive a drastic boost in performance. Ollama should automatically use your GPU as the primary processor if available, but if for some reason it is not, follow the guide [How to run Ollama on Windows](https://medium.com/@researchgraph/how-to-run-ollama-on-windows-8a1622525ada) to learn more about GPU acceleration for LLMs and how to utilize its capabilities.
+
+## Resources
+- [RAG + Langchain Python Project: Easy AI/Chat For Your Docs](https://www.youtube.com/watch?v=tcqEUSNCn8I)
+- [Python RAG Tutorial (with Local LLMs:) AI For Your PDFs](https://www.youtube.com/watch?v=2TJxpyO3ei4&t=369s)
+- [Chat with Multiple PDFS | LangChain App Tutorial in Python (Free LLMs and Embeddings)](https://www.youtube.com/watch?v=dXxQ0LR-3Hg&t=2201s)
+- [How to run Ollama on Windows](https://medium.com/@researchgraph/how-to-run-ollama-on-windows-8a1622525ada)
+
+   
