@@ -45,7 +45,7 @@ Open the [RAG-Tutorial](https://github.com/wkguoKBR/RAG-Tutorial) GitHub repo to
 
 2) Add PDFs in `data` folder
 
-   Place your desired PDF documents in the `data` folder. Currently, the folder only has `monoploy.pdf` which specifies the rules of the game.
+   Place your desired PDF documents in the `data` folder. Currently, the folder only has `monopoly.pdf` which specifies the rules of the game.
 
 3) Specify OpenAI API Key in `.env` (skip if you prefer to use Ollama models)
 
@@ -78,11 +78,11 @@ After you decided which platform to use, navigate to `populate_database.py` and 
 
 1) Run `python ollama_query_data.py "user_question"` (replace ollama_query_data.py with openai_query_data.py if using OpenAI)
 
-   This will run the `ollama_query_data.py` script. Replace "user_question" with your desired question/prompt about the provided PDF documents. In this case, the screenshot below asks the `llama3` model the question of "How do you build hotels in Monoploy?".
+   This will run the `ollama_query_data.py` script. Replace "user_question" with your desired question/prompt about the provided PDF documents. In this case, the screenshot below asks the `llama3` model the question of "How do you build hotels in monopoly?".
 
    ![query_ollama](Images/images_rag_langchain_guide/query_ollama.png)
 
-   We can observe that we received a detailed response from `llama3` regarding how to build hotels in the game of Monoploy. We are also provided a list of the top 5 sources that served as context for the LLM to generate its response. For example, the first source of `monoploy.pdf:1:2` is of the form  `Page Source: Page Number: Chunk Index` and refers to the second chunk of the first page of `monoploy.pdf`.
+   We can observe that we received a detailed response from `llama3` regarding how to build hotels in the game of monopoly. We are also provided a list of the top 5 sources that served as context for the LLM to generate its response. For example, the first source of `monopoly.pdf:1:2` is of the form  `Page Source: Page Number: Chunk Index` and refers to the second chunk of the first page of `monopoly.pdf`.
    
 ### Part 2: Enhancing the RAG Application with Streamlit UI
 
@@ -118,7 +118,7 @@ We will now move on to Part 2 of this guide which covers on to extend our RAG ap
 
 1) Input a question into input box and press `Enter`
 
-   Provide a user query such as "How do you build hotels in Monoploy?". The LLM will process the user prompt, identify the relevant context, and generate an appropriate response.
+   Provide a user query such as "How do you build hotels in monopoly?". The LLM will process the user prompt, identify the relevant context, and generate an appropriate response.
 
    ![ask_chatbot_question](Images/images_rag_langchain_guide/ask_chatbot_question.png)
 
